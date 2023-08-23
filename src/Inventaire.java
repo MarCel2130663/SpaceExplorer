@@ -1,0 +1,2 @@
+public class Inventaire {
+}
