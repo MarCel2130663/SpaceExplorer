@@ -10,6 +10,14 @@ public class Planete{
         this.item = item;
     }
 
+    public String getNom(){
+        return nom;
+    }
+
+    public Item getItem(){
+        return item;
+    }
+
     public void explorer(Vaisseau vaisseau){
         vaisseau.setCarburant(vaisseau.getCarburant() - carburantConsomme);
     }
