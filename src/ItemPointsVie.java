@@ -1,23 +1,13 @@
-public class ItemPointsVie implements Item {
-
-    String nom;
-    String fonction;
+public class ItemPointsVie extends Item {
 
     ItemPointsVie(String nom){
-        this.nom = nom;
-        fonction = "Votre vaisseau se porte mieux!";
-    }
-
-    public String getNom(){
-        return nom;
-    }
-
-    public String getFonction(){
-        return fonction;
+        super(nom);
+        utilite = "Votre vaisseau se portera mieux!";
     }
 
     public void utiliser(Vaisseau vaisseau){
-        vaisseau.setPointsVie(vaisseau.getPointsVie() + (int)((Math.random() * 5) + 10));
+        vaisseau.setPointsVie(vaisseau.getPointsVie() + (int)((Math.random() * 5) + 5));
+        System.out.println("Vous avez maintenant " + vaisseau.getPointsVie() + " points de vie.");
     }
 
 }

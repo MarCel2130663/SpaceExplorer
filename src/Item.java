@@ -1,9 +1,21 @@
-interface Item {
+public class Item {
 
-    public String getNom();
+    protected String nom;
+    protected String utilite;
 
-    public String getFonction();
+    Item(String nom){
+        this.nom = nom;
+        utilite = "Cet item est inutile.";
+    }
 
-    public void utiliser(Vaisseau vaisseau);
+    public String getNom(){
+        return nom;
+    }
+
+    public String getUtilite(){
+        return utilite;
+    }
+
+    public void utiliser(Vaisseau vaisseau){}
 
 }

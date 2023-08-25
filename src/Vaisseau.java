@@ -8,8 +8,8 @@ public class Vaisseau {
     private List<Item> inventaire;
 
     Vaisseau(){
-        carburant = 500;
-        pointsVie = 50;
+        carburant = 100;
+        pointsVie = 20;
         inventaire = new ArrayList<>();
     }
 
@@ -31,6 +31,10 @@ public class Vaisseau {
 
     public List<Item> getInventaire(){
         return inventaire;
+    }
+
+    public void viderInventaire(){
+        inventaire.clear();
     }
 
     public void ajouterInventaire(Item item){

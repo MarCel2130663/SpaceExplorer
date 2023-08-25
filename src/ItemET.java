@@ -1,23 +1,21 @@
-public class ItemET implements Item{
-
-    String nom;
-    String fonction;
+public class ItemET extends Item{
 
     ItemET(String nom){
-        this.nom = nom;
-        fonction = "Il vole tout le contenu de votre inventaire!";
+        super(nom);
+        utilite = "Apprenez a le connaitre!";
     }
 
     public String getNom(){
         return nom;
     }
 
-    public String getFonction(){
-        return fonction;
+    public String getUtilite(){
+        return utilite;
     }
 
     public void utiliser(Vaisseau vaisseau){
         vaisseau.getInventaire().clear();
+        System.out.println("L'extraterrestre vole tout le contenu de votre vaisseau. Votre inventaire est maintenant vide.");
     }
 
 }

@@ -1,23 +1,13 @@
-public class ItemCarburant implements Item{
-
-    String nom;
-    String fonction;
+public class ItemCarburant extends Item{
 
     ItemCarburant(String nom){
-        this.nom = nom;
-        fonction = "Vous avez fait le plein d'essence!";
-    }
-
-    public String getNom(){
-        return nom;
-    }
-
-    public String getFonction(){
-        return fonction;
+        super(nom);
+        utilite = "Vous pouvez faire le plein d'essence!";
     }
 
     public void utiliser(Vaisseau vaisseau){
-        vaisseau.setCarburant(vaisseau.getCarburant() + (int)((Math.random() * 10) + 20));
+        vaisseau.setCarburant(vaisseau.getCarburant() + (int)((Math.random() * 20) + 20));
+        System.out.println("Vous avez maintenant " + vaisseau.getCarburant() + " litres d'essence.");
     }
 
 }
