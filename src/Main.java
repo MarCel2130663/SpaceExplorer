@@ -1,4 +1,5 @@
-import java.util.Arrays;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -32,16 +33,38 @@ public class Main {
         Planete nouvellePlanete;
         Scanner sc = new Scanner(System.in);
         int choixUtilisateur;
+        char continuer;
 
         cheminParcouru.push(planeteActuelle);
 
         System.out.println("\nBienvenue dans Space Explorer!");
 
         do {
-        System.out.print("\nQue desirez-vous faire?\n\t[1] Examiner le vaisseau\n\t[2] Explorer une planete\n\t" +
-                "[3] Ouvrir l'inventaire\n\t[4] Annuler le dernier voyage (a vos frais)\n\t[5] Quitter l'espace et revenir sur Terre\n>> ");
-        choixUtilisateur = sc.nextInt();
-        System.out.println();
+            try{
+                System.out.print("Appuyez sur [C] pour continuer.\n>> ");
+                continuer = sc.next().toUpperCase().charAt(0);
+                InputMismatchException l = new InputMismatchException();
+                if(continuer != 'C')
+                    throw l;
+            }catch(InputMismatchException l){
+                do{
+                    System.out.print("Appuyez sur [C] pour continuer.\n>> ");
+                    continuer = sc.next().toUpperCase().charAt(0);
+                }while(continuer != 'C');
+
+            }
+
+            System.out.print("""
+
+                    Que desirez-vous faire?
+                    \t[1] Examiner le vaisseau
+                    \t[2] Explorer une planete
+                    \t[3] Ouvrir l'inventaire
+                    \t[4] Annuler le dernier voyage (a vos frais)
+                    \t[5] Quitter l'espace et revenir sur Terre
+                    >>\s""");
+            choixUtilisateur = sc.nextInt();
+            System.out.println();
 
             switch (choixUtilisateur) {
                 case 1 -> // examiner le vaisseau
@@ -80,18 +103,23 @@ public class Main {
 
                 case 3 -> { // ouvrir l'inventaire
                     int i;
-                    try{
+                    try {
                         NullPointerException e = new NullPointerException();
-                        if(vaisseau.getInventaire().isEmpty())
+                        if (vaisseau.getInventaire().isEmpty()){
                             throw e;
-                        for (i = 0; i < vaisseau.getInventaire().size(); i++) {
-                            System.out.println("[" + (i+1) + "] " + vaisseau.getInventaire().get(i).getNom());
                         }
-                        System.out.println("[" + (i + 1) + "] Fermer l'inventaire");
                         System.out.println("Quel item voulez-vous utiliser?");
+                        for (i = 0; i < vaisseau.getInventaire().size(); i++) {
+                            System.out.println("\t[" + (i+1) + "] " + vaisseau.getInventaire().get(i).getNom());
+                        }
+
+                        System.out.println("\t[" + (i + 1) + "] Fermer l'inventaire");
+                        System.out.print(">> ");
                         choixUtilisateur = sc.nextInt();
-                        vaisseau.getInventaire().get(i-1).utiliser(vaisseau);
-                        vaisseau.getInventaire().remove(i-1);
+                        if(choixUtilisateur < i + 1){
+                            vaisseau.getInventaire().get(choixUtilisateur - 1).utiliser(vaisseau);
+                            vaisseau.getInventaire().remove(i-1);
+                        }
                     }
                     catch(NullPointerException e){
                         System.out.println("Votre inventaire est vide.");
@@ -101,11 +129,26 @@ public class Main {
                 case 4 -> { // annuler le dernier voyage
                     if(!cheminParcouru.empty()){
                         cheminParcouru.pop();
-                        cheminParcouru.peek().explorer(vaisseau);
+                        nouvellePlanete = cheminParcouru.peek();
+                        nouvellePlanete.explorer(vaisseau);
+                        System.out.println("Vous atterrissez sur " + nouvellePlanete.getNom() + ". Vous avez depense " + nouvellePlanete.getCarburantConsomme() + " litres d'essence.");
+                        try{
+                            NullPointerException u = new NullPointerException();
+                            if(nouvellePlanete.getPointsViePerdus() == 0){
+                                throw u;
+                            }
+                            System.out.println("Des dechets spatiaux vous heurtent de plein fouet! Vous perdez " + nouvellePlanete.getPointsViePerdus() + " points de vie.");
+                        }
+                        catch(NullPointerException u){
+                            System.out.println("Vous etes en securite!");
+                        }
+                        planeteActuelle = nouvellePlanete;
                     }
                 }
+
+                case 5 -> System.out.println("Bon retour a la maison!");
             }
-        }while(choixUtilisateur != 5 || vaisseau.getCarburant() == 0 || vaisseau.getPointsVie() == 0);
+        }while(choixUtilisateur != 5 && vaisseau.getCarburant() > 0 && vaisseau.getPointsVie() > 0);
 
         // nouveau stack pour afficher chemin parcouru
         Stack<Planete> stack2 = new Stack<>();
@@ -113,10 +156,14 @@ public class Main {
             stack2.push(cheminParcouru.peek());
             cheminParcouru.pop();
         }
-        for(int i = 0; i < cheminParcouru.size(); i++){
-            System.out.println(stack2.peek().getNom() + " --> ");
+
+        System.out.println();
+        for(int i = 0; i < stack2.size(); i++){
+            System.out.print(stack2.peek().getNom() + " --> ");
             stack2.pop();
         }
+        if(choixUtilisateur == 5)
+            System.out.print("Terre");
 
         sc.close();
 
