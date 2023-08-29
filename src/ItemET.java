@@ -15,7 +15,7 @@ public class ItemET extends Item{
 
     public void utiliser(Vaisseau vaisseau){
         vaisseau.getInventaire().clear();
-        System.out.println("L'extraterrestre vole tout le contenu de votre vaisseau. Votre inventaire est maintenant vide.");
+        System.out.println("L'extraterrestre vole tout le contenu de votre vaisseau.");
     }
 
 }

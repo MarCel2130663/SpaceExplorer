@@ -1,4 +1,5 @@
 
+import java.util.EmptyStackException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
@@ -118,7 +119,17 @@ public class Main {
                         choixUtilisateur = sc.nextInt();
                         if(choixUtilisateur < i + 1){
                             vaisseau.getInventaire().get(choixUtilisateur - 1).utiliser(vaisseau);
-                            vaisseau.getInventaire().remove(i-1);
+                            try{
+                                NullPointerException x = new NullPointerException();
+                                if(vaisseau.getInventaire().isEmpty()){
+                                    throw x;
+                                }
+                                vaisseau.getInventaire().remove(i-1);
+                            }
+                            catch (NullPointerException x){
+                                System.out.println("Votre inventaire est maintenant vide");
+                            }
+
                         }
                     }
                     catch(NullPointerException e){
@@ -127,22 +138,28 @@ public class Main {
                 }
 
                 case 4 -> { // annuler le dernier voyage
-                    if(!cheminParcouru.empty()){
+                    try{
+                        EmptyStackException s = new EmptyStackException();
+                        if(cheminParcouru.isEmpty()) {
+                            throw s;
+                        }
                         cheminParcouru.pop();
                         nouvellePlanete = cheminParcouru.peek();
                         nouvellePlanete.explorer(vaisseau);
                         System.out.println("Vous atterrissez sur " + nouvellePlanete.getNom() + ". Vous avez depense " + nouvellePlanete.getCarburantConsomme() + " litres d'essence.");
-                        try{
+                        try {
                             NullPointerException u = new NullPointerException();
-                            if(nouvellePlanete.getPointsViePerdus() == 0){
+                            if (nouvellePlanete.getPointsViePerdus() == 0) {
                                 throw u;
                             }
                             System.out.println("Des dechets spatiaux vous heurtent de plein fouet! Vous perdez " + nouvellePlanete.getPointsViePerdus() + " points de vie.");
-                        }
-                        catch(NullPointerException u){
+                        } catch (NullPointerException u) {
                             System.out.println("Vous etes en securite!");
                         }
                         planeteActuelle = nouvellePlanete;
+                    }
+                    catch(EmptyStackException s) {
+                        System.out.println("Impossible de revenir en arriere.");
                     }
                 }
 
@@ -158,7 +175,7 @@ public class Main {
         }
 
         System.out.println();
-        for(int i = 0; i < stack2.size(); i++){
+        for(int i = 0; i <= stack2.size(); i++){
             System.out.print(stack2.peek().getNom() + " --> ");
             stack2.pop();
         }

@@ -30,6 +30,7 @@ public class Planete{
 
     public void explorer(Vaisseau vaisseau){
         vaisseau.setCarburant(vaisseau.getCarburant() - carburantConsomme);
+        vaisseau.setPointsVie(vaisseau.getPointsVie() - pointsViePerdus);
     }
 
 }

@@ -8,7 +8,7 @@ public class Vaisseau {
     private List<Item> inventaire;
 
     Vaisseau(){
-        carburant = 100;
+        carburant = 200;
         pointsVie = 20;
         inventaire = new ArrayList<>();
     }
