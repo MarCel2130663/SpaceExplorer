@@ -1,6 +1,9 @@
-public class ItemET extends Item{
+package Trouvailles;
+import Vehicule.Vaisseau;
 
-    ItemET(String nom){
+public class ItemET extends Item {
+
+    public ItemET(String nom){
         super(nom);
         utilite = "Apprenez a le connaitre!";
     }

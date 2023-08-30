@@ -1,3 +1,7 @@
+package Vehicule;
+
+import Trouvailles.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +11,8 @@ public class Vaisseau {
     private int pointsVie;
     private List<Item> inventaire;
 
-    Vaisseau(){
-        carburant = 200;
+    public Vaisseau(){
+        carburant = 100;
         pointsVie = 20;
         inventaire = new ArrayList<>();
     }

@@ -1,6 +1,9 @@
-public class ItemCarburant extends Item{
+package Trouvailles;
+import Vehicule.Vaisseau;
 
-    ItemCarburant(String nom){
+public class ItemCarburant extends Item {
+
+    public ItemCarburant(String nom){
         super(nom);
         utilite = "Vous pouvez faire le plein d'essence!";
     }

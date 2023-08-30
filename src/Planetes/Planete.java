@@ -1,3 +1,8 @@
+package Planetes;
+
+import Trouvailles.Item;
+import Vehicule.Vaisseau;
+
 public class Planete{
 
     private String nom;
@@ -5,7 +10,7 @@ public class Planete{
     private int pointsViePerdus;
     private Item item;
 
-    Planete(String nom, int carburantConsomme, int pointsViePerdus, Item item){
+    public Planete(String nom, int carburantConsomme, int pointsViePerdus, Item item){
         this.nom = nom;
         this.carburantConsomme = carburantConsomme;
         this.pointsViePerdus = pointsViePerdus;

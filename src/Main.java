@@ -1,4 +1,11 @@
 
+import Planetes.Planete;
+import Trouvailles.Item;
+import Trouvailles.ItemCarburant;
+import Trouvailles.ItemET;
+import Trouvailles.ItemPointsVie;
+import Vehicule.Vaisseau;
+
 import java.util.EmptyStackException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -70,7 +77,7 @@ public class Main {
             switch (choixUtilisateur) {
                 case 1 -> // examiner le vaisseau
                         System.out.println("Carburant : " + vaisseau.getCarburant() + " litres\nPoints de vie : " + vaisseau.getPointsVie()
-                                + " points");
+                                + " points\nPlanete actuelle : " + planeteActuelle.getNom());
 
                 case 2 -> { // explorer une planete
                     do {
@@ -167,17 +174,22 @@ public class Main {
             }
         }while(choixUtilisateur != 5 && vaisseau.getCarburant() > 0 && vaisseau.getPointsVie() > 0);
 
+
+        if(vaisseau.getCarburant() <= 0)
+            System.out.println("\nVous etes a sec!");
+        else if(vaisseau.getPointsVie()
+                <= 0)
+            System.out.println("\nVotre vaisseau est detruit!");
+
         // nouveau stack pour afficher chemin parcouru
         Stack<Planete> stack2 = new Stack<>();
-        while(!cheminParcouru.empty()){
-            stack2.push(cheminParcouru.peek());
-            cheminParcouru.pop();
+        while(!cheminParcouru.isEmpty()){
+            stack2.push(cheminParcouru.pop());
         }
 
         System.out.println();
-        for(int i = 0; i <= stack2.size(); i++){
-            System.out.print(stack2.peek().getNom() + " --> ");
-            stack2.pop();
+        while(!stack2.isEmpty()){
+            System.out.print(stack2.pop().getNom() + " --> ");
         }
         if(choixUtilisateur == 5)
             System.out.print("Terre");

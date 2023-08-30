@@ -1,3 +1,5 @@
+package Trouvailles;
+import Vehicule.Vaisseau;
 public class Item {
 
     protected String nom;

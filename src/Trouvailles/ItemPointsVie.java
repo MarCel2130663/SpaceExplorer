@@ -1,6 +1,9 @@
+package Trouvailles;
+import Vehicule.Vaisseau;
+
 public class ItemPointsVie extends Item {
 
-    ItemPointsVie(String nom){
+    public ItemPointsVie(String nom){
         super(nom);
         utilite = "Votre vaisseau se portera mieux!";
     }
